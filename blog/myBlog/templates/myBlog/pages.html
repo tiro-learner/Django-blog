@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+{% include 'myBlog/head.html' %}
+{% load static %}
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+    {% include 'myBlog/nav.html'%}
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('{{site.home_head_img.url}}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>{{site.title}}</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">{{site.home_desc}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+        <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
+           {% for article in articles %}
+                {% if article.published %}
+                    <div class="post-preview">
+                        <a href="{% url 'myBlog:article' article.id %}">
+                            <h2 class="post-title">
+                                {{ article.title }}
+                            </h2>
+                            {% if article.sub_title %}
+                            <h3 class="post-subtitle">
+                                {{ article.sub_title }}
+                            </h3>
+                            {% endif %}
+                            <div class="post-content-preview">
+                                <!--{% load dehtml_parse %}-->
+                                {{ article.rich_text | slice:"300" | dehtml}}
+                            </div>
+                        </a>
+                        <p class="post-meta">
+                            Posted by {{ article.author }} on {{ article.posted_time | date:"F j,Y"}}
+                        </p>
+                    </div>
+                    <hr>
+                {% endif %}
+            {% endfor %}
+
+        <!--Pager-->
+        <ul class="pager">
+            {% if articles.has_previous %}
+            <li class="previous">
+                <a href="/pages/{{articles.previous_page_number}}">&larr; Prev </a>
+            </li>
+            {% endif %}
+            {% if articles.has_next %}
+            <li class="next">
+                <a href="/pages/{{articles.next_page_number}}">Next &rarr;</a>
+            </li>
+            {% endif %}
+        </ul>
+</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        {% for featured_tag in featured_tags %}
+                                <a href="/tags/#{{featured_tag.name}}" title="{{featured_tag.name}}" rel="{{featured_tag.size}}">
+                                    {{featured_tag.name}}
+                                </a>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                 <!-- Category -->
+                 <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/categories/">FEATURED CATEGORIES</a></h5>
+                    <div class="tags">
+                        {% for featured_category in featured_categories %}
+                                <a href="/categories/#{{featured_category.name}}" title="{{featured_category.name}}" rel="{{featured_category.size}}">
+                                    {{featured_category.name}}
+                                </a>
+                        {% endfor %}
+                    </div>
+                </section>
+    		</div>
+
+	</div>
+</div>
+
+
+    <!-- Footer -->
+{% include 'myBlog/footer.html' %}
+
+<!-- jQuery -->
+<script src="{% static 'myBlog/js/jquery.min.js' %}"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("{% static 'myBlog/js/jquery.tagcloud.js' %}",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+</body>
+
+</html>

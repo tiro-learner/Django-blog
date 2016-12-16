@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    {% include 'myBlog/head.html' %}
+    {% load static %}
+    <body ontouchstart="">
+        {% include 'myBlog/nav.html'%}
+        <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('{% if site.tag_head_img.url %}{{site.tag_head_img.url}}{% else %}{{site.home_head_img.url}}{% endif %}')">
+           <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                        <div class="site-heading">
+                            <h1>{{site.tags_page_title}}</h1>
+                            <!--<hr class="small">-->
+                            <span class="subheading">{{site.tags_page_desc}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- Main Content -->
+        <div class="container">
+            <div class="row">
+		        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <!-- 标签云 -->
+                    <div id='tag_cloud' class="tags">
+                        {% for tag in tags %}
+                        <a href="#{{ tag.name }}" title="{{ tag.name }}" rel="{{tag.size}}">{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+
+                    <!-- 标签列表 -->
+                    {% for tag in tags %}
+                    <div class="one-tag-list">
+                        <span class="fa fa-tag listing-seperator" id="{{ tag.name }}">
+                            <span class="tag-text">{{ tag.name }}</span>
+                        </span>
+                        {% for article in tag.article_set.all %}
+                          <!-- <li class="listing-item">
+                          <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                          <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                          </li> -->
+                         <div class="post-preview">
+                            <a href="{% url 'myBlog:article' article.id %}">
+                                <h2 class="post-title">
+                                    {{ article.title }}
+                                </h2>
+                                {% if article.sub_title %}
+                                <h3 class="post-subtitle">
+                                    {{ article.sub_title }}
+                                </h3>
+                                {% endif %}
+                            </a>
+                            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                        </div>
+                        <hr>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        {% include 'myBlog/footer.html' %}
+        <!-- jQuery -->
+        <script src="{% static 'myBlog/js/jquery.min.js' %}"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="{% static 'myBlog/js/bootstrap.min.js' %}"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="{% static 'myBlog/js/tiro_blog.min.js' %}"></script>
+
+
+        <!-- async load function -->
+        <script>
+            function async(u, c) {
+              var d = document, t = 'script',
+                  o = d.createElement(t),
+                  s = d.getElementsByTagName(t)[0];
+              o.src = u;
+              if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+              s.parentNode.insertBefore(o, s);
+            }
+        </script>
+
+
+        <!-- jquery.tagcloud.js -->
+        <script>
+            // only load tagcloud.js in tag.html
+            if($('#tag_cloud').length !== 0){
+                async("{% static 'myBlog/js/jquery.tagcloud.js' %}",function(){
+                    $.fn.tagcloud.defaults = {
+                        //size: {start: 1, end: 1, unit: 'em'},
+                        color: {start: '#bbbbee', end: '#0085a1'},
+                    };
+                    $('#tag_cloud a').tagcloud();
+                })
+            }
+        </script>
+
+        <!--fastClick.js -->
+        <script>
+            async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+                var $nav = document.querySelector("nav");
+                if($nav) FastClick.attach($nav);
+            })
+        </script>
+    </body>
+</html>

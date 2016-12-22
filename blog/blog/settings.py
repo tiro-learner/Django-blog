@@ -14,35 +14,11 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads/media/")   #file upload path
-MEDIA_URL = "/uploads/media/"
-CKEDITOR_UPLOAD_PATH = "images/article"
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar':[
-            ['Source','-','Save','NewPage','Preview','-','Templates'],
-            ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker','Scayt'],
-            ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-            ['Form','Checkbox','Radio','TextField','Textarea','Select','Button', 'ImageButton','HiddenField'],
-            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-            ['Link','Unlink','Anchor'],
-            ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
-            ['Styles','Format','Font','FontSize'],
-            ['TextColor','BGColor'],
-            ['Maximize','ShowBlocks','-','About']
-        ],
-        'width': 650,
-        'height': 200,
-        'toolbarCanCollapse': False,
-    },
-}
-
+MEDIA_URL =   "/uploads/media/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -53,9 +29,8 @@ SECRET_KEY = '75s78h68*0evgby^8h$mdb6*nxi9*a2$&zi_4!9hqh00@@m+du'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_HOSTS = ['127.0.0.1', '139.199.165.63', 'www.tiro.ga']
 
-# ALLOWED_HOSTS = ['127.0.0.1', '139.199.165.63', 'www.tiro.ga']
-ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -64,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    # 'django.contrib.staticfiles',
     'myBlog',
     'ckeditor',
-     'markdownx',
+    'markdownx',
 ]
 
 MIDDLEWARE = [
@@ -134,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-#LANGUAGE_CODE = 'zh_hans'
+# LANGUAGE_CODE = 'zh_hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -144,15 +119,41 @@ USE_L10N = True
 
 USE_TZ = True
 
+MARKDOWNX_MARKDOWNIFY_FUNCTION = 'myBlog.utils.markdownify'
+CKEDITOR_UPLOAD_PATH = "images/article"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar':[
+            ['Source','-','Save','NewPage','Preview','-','Templates'],
+            ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker','Scayt'],
+            ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+            ['Form','Checkbox','Radio','TextField','Textarea','Select','Button', 'ImageButton','HiddenField'],
+            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+            ['Link','Unlink','Anchor'],
+            ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+            ['Styles','Format','Font','FontSize'],
+            ['TextColor','BGColor'],
+            ['Maximize','ShowBlocks','-','About']
+        ],
+        'width': 650,
+        'height': 200,
+        'toolbarCanCollapse': False,
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-# if DEBUG:
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+# if DEBUG:
+#     STATICFILES_FINDERS = (
+#         'django.contrib.staticfiles.finders.FileSystemFinder',
+#         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     )
+#
+#     STATICFILES_DIRS = [
+#         os.path.join(BASE_DIR, "static"),
+#     ]
+#

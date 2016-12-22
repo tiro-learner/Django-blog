@@ -1,0 +1,5 @@
+django
+markdown
+django-markdownx
+ckeditor
+

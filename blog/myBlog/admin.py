@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django import forms
 from .models import  *
-from .epiceditor import  AdminEpicEditorWidget
 from markdownx.widgets import AdminMarkdownxWidget
 import markdown
 # Register your models here.
@@ -34,6 +33,11 @@ class ArticleAdmin(admin.ModelAdmin):
             message_bit = "%s articles were" % rows_updated
         self.message_user(request, "%s successfully marked as published." % message_bit)
 
+    class Media:
+        css = {
+            'all': ('myBlog/css/friendly.css',)
+        }
+
     # formfield_overrides = {
     #     Article.markdownContent: {'widget': AdminEpicEditorWidget},
     # }
@@ -52,11 +56,12 @@ class ArticleAdmin(admin.ModelAdmin):
 
     try:
         editor = Site.objects.all()[0].editor
+
     except:
         editor = "Markdown"
 
-    if editor== "Markdown":
-        form = ArticleForm
+    form = ArticleForm
+    if editor == "Markdown":
         fieldsets = [
             (None,
              {'fields': ['title', 'sub_title', 'author', 'content', 'category', 'tags', 'head_img', 'published']}),

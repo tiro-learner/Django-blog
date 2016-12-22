@@ -37,7 +37,6 @@ def dehtml_parse(html_text):
         parser.feed(html_text)
         parser.close()
         return parser.text()
-
     except:
         print_exc(file=stderr)
         return html_text

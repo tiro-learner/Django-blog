@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^tags/$', views.tags_view, name='tags'),
     url(r'^categories/$', views.categories_view, name='categories'),
     url(r'^articles/(?P<article_id>[0-9]+)/$', views.article_view, name='article'),
+    url(r'^add/$', views.article_add_view, name='article_add'),
+    url(r'^articles/(?P<article_id>[0-9]+)/edit/$', views.article_edit_view, name='article_edit'),
 ]
 
 if settings.DEBUG:

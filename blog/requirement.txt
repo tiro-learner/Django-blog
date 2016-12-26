@@ -2,4 +2,4 @@ django
 markdown
 django-markdownx
 ckeditor
-
+pygments

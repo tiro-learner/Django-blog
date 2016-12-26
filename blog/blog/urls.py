@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^tiro_admin/', admin.site.urls),
     url(r'^', include('myBlog.urls', namespace='myBlog')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^markdownx/', include('markdownx.urls')),

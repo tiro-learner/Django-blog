@@ -18,7 +18,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads/media/")   #file upload path
-MEDIA_URL =   "/uploads/media/"
+MEDIA_URL = "/uploads/media/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/

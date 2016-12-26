@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 # Create your views here.
@@ -28,9 +28,17 @@ def page_view(request, page=1):
 
 
 def article_view(request, article_id):
-    article = get_object_or_404(Article, pk=article_id)
+    article = get_object_or_404(Article, pk=article_id, published=True)
     my_site = Site.objects.all()[0]
     return render(request, 'myBlog/article.html', {'article': article, 'site': my_site})
+
+
+def article_add_view(request):
+    return redirect("/tiro_admin/myBlog/article/add/")
+
+
+def article_edit_view(request, article_id):
+    return redirect("/tiro_admin/myBlog/article/%s/change"%article_id)
 
 
 def categories_view(request):

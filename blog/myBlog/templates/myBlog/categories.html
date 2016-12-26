@@ -39,6 +39,7 @@
                             <span class="tag-text">{{ category.name }}</span>
                         </span>
                         {% for article in category.article_set.all %}
+						{% if article.published %}
                           <!-- <li class="listing-item">
                           <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
                           <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
@@ -57,6 +58,7 @@
                             <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
                         </div>
                         <hr>
+						{% endif %}
                         {% endfor %}
                     </div>
                     {% endfor %}

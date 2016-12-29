@@ -11,6 +11,7 @@
             background-image: url('{% if article.head_img %}{{article.head_img.url}}{% elif article.category.head_img %}{{ article.category.head_img.url  }}{% else %}{{ site.home_head_img.url}}{% endif %}')
         }
     </style>
+	<link rel="stylesheet" href="{% static 'myBlog/css/friendly.css' %}">
 
     <header class="intro-header" >
         <div class="header-mask"></div>

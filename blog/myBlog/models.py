@@ -65,7 +65,7 @@ class Article(models.Model):
 
 
     def save(self,*args, **kwargs):
-        self.rich_text = markdown.markdown(self.content)
+        self.rich_text = markdown.markdown(self.content, 'codehilite')
         super(Article, self).save(*args, **kwargs)
 
     def __str__(self):
